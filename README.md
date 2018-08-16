@@ -264,6 +264,9 @@ constructor 引数の `store` は Angular の DI の仕組みで Inject され�
 
 こうして、 Container Component 内で実装により正しく型が保証された store が手に入る。
 
+また、 Container Component で Redux Module を参照することにより、それぞれの Redux Module は実際にそれを使う Component からしか参照されなくなる。
+後は普通に NgModule の lazy loading の実装を入れれば、 Angular がいい感じに code splitting してくれる。
+
 2. store の状態を参照する
 
 先に作った selector を使って参照する（`Observable` で取れる）。
