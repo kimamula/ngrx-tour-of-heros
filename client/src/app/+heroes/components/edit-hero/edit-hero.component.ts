@@ -13,13 +13,13 @@ export class EditHeroComponent implements OnChanges {
 
   // form: FormGroup;
 
-  @Input() hero: Hero;
+  @Input() hero!: Hero;
 
   @Output() heroChange = new EventEmitter<Hero>();
 
   selectedPowers: Power[] = [];
 
-  @Input() powers: Array<Power>;
+  @Input() powers!: Array<Power>;
 
   constructor(private formBuilder: FormBuilder) {
   }

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { map, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { Power } from '../../../core/models/power.model';
 import { PowersService } from '../../../core/services/powers.service';
@@ -14,7 +14,7 @@ import { HeroesService } from '../../../core/services/heroes.service';
   templateUrl: './power.component.html',
   styleUrls: ['./power.component.scss']
 })
-export class PowerComponent implements OnInit {
+export class PowerComponent {
   heroes: Observable<Array<Hero>>;
 
   power: Observable<Power>;
@@ -23,9 +23,7 @@ export class PowerComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private heroesService: HeroesService,
     private powersService: PowersService
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.power = this.activatedRoute.paramMap.pipe(
       switchMap(params => this.powersService.getPower(Number(params.get('id'))))
     );

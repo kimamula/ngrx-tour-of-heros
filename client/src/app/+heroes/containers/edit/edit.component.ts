@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 
@@ -15,7 +15,7 @@ import { Power } from '../../../core/models/power.model';
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
 })
-export class EditComponent implements OnInit {
+export class EditComponent {
 
   hero: Observable<Hero>;
 
@@ -26,18 +26,9 @@ export class EditComponent implements OnInit {
               private heroesService: HeroesService,
               private powersService: PowersService,
               private snackBar: MatSnackBar) {
-  }
-
-  ngOnInit() {
-    // same solution with switchMap() operator
-    // this.activatedRoute.paramMap
-    //   .subscribe(params => {
-    //     this.hero = this.heroesService.getHero(+params.get('id'))
-    //   })
-
     this.hero = this.activatedRoute.paramMap
       .pipe(
-        switchMap(params => this.heroesService.getHero(+params.get('id')))
+        switchMap(params => this.heroesService.getHero(+params.get('id')!))
       );
 
     this.powers = this.powersService.getPowers();

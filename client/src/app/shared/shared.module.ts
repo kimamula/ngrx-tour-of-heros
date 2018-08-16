@@ -19,10 +19,8 @@ import { DialogHeaderComponent } from './components/dialog-header/dialog-header.
 
 import { LayoutComponent } from './components/layout/layout.component';
 import { NotFoundComponent } from './containers/not-found/not-found.component';
-import { AddPowerDialogComponent } from './dialogs/add-power-dialog/add-power-dialog.component';
 
 const components = [
-  AddPowerDialogComponent,
   DialogHeaderComponent,
   LayoutComponent,
   NotFoundComponent
@@ -44,7 +42,6 @@ const components = [
     RouterModule,
     ReactiveFormsModule
   ],
-  entryComponents: [AddPowerDialogComponent],
   declarations: [...components],
   exports: [...components]
 })

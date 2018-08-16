@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Observable,  forkJoin } from 'rxjs';
@@ -15,7 +15,7 @@ import { Hero } from '../../../core/models/hero.model';
   templateUrl: './character.component.html',
   styleUrls: ['./character.component.scss']
 })
-export class CharacterComponent implements OnInit {
+export class CharacterComponent {
   hero: Observable<Hero>;
 
   powers: Observable<Array<Power>>;
@@ -26,9 +26,7 @@ export class CharacterComponent implements OnInit {
     private characterService: CharactersService,
     private heroesService: HeroesService,
     private powersService: PowersService
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.hero = this.activatedRoute.paramMap.pipe(
       switchMap(paramMap =>
         this.heroesService.getHero(Number(paramMap.get('id')))

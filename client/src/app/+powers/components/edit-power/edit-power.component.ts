@@ -13,12 +13,14 @@ export class EditPowerComponent implements OnChanges, OnInit {
 
   form: FormGroup;
 
-  @Input() power: Power;
+  @Input() power!: Power;
 
   @Output() powerChange = new EventEmitter<Power>();
 
   constructor(private formBuilder: FormBuilder) {
-    this.createForm();
+    this.form = this.formBuilder.group({
+      name: ['', Validators.required]
+    });
   }
 
   ngOnChanges() {
@@ -44,12 +46,6 @@ export class EditPowerComponent implements OnChanges, OnInit {
           ...value
         });
       });
-  }
-
-  createForm() {
-    this.form = this.formBuilder.group({
-      name: ['', Validators.required]
-    });
   }
 
 }

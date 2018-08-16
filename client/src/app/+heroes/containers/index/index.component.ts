@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import { Observable } from 'rxjs';
@@ -12,15 +12,12 @@ import { AddHeroDialogComponent } from '../../components/add-hero-dialog/add-her
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss']
 })
-export class IndexComponent implements OnInit {
+export class IndexComponent {
 
   heroes: Observable<Array<Hero>>;
 
   // TODO: use store instead of service
   constructor(private heroesService: HeroesService, private matDialog: MatDialog) {
-  }
-
-  ngOnInit() {
     // TODO: dispatch action to store
     this.heroes = this.heroesService.getHeroes();
   }

@@ -22,15 +22,15 @@ import { PowersService } from '../../../core/services/powers.service';
   styleUrls: ['./add-hero-dialog.component.scss']
 })
 export class AddHeroDialogComponent implements OnInit {
-  filteredCharacters: Observable<Array<Character>>;
+  filteredCharacters!: Observable<Array<Character>>;
 
-  form: FormGroup;
+  form!: FormGroup;
 
   selectedPowers: Power[] = [];
 
-  private character: Character;
+  private character?: Character;
 
-  private powers: Array<Power>;
+  private powers?: Array<Power>;
 
   // TODO: use store instead of services
   constructor(
@@ -49,7 +49,7 @@ export class AddHeroDialogComponent implements OnInit {
     this.powersService.getPowers().subscribe(powers => (this.powers = powers));
 
     this.filteredCharacters = this.form
-      .get('name')
+      .get('name')!
       .valueChanges.pipe(
         debounceTime(500),
         distinctUntilChanged(),
@@ -96,7 +96,7 @@ export class AddHeroDialogComponent implements OnInit {
     }
 
     const hero: Hero = this.form.value;
-    hero.character = this.character;
+    hero.character = this.character!;
     hero.powers = this.selectedPowers.map(power => power.id);
 
     // TODO: dispatch action to store

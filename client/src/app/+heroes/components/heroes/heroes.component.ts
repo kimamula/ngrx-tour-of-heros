@@ -11,7 +11,7 @@ export class HeroesComponent {
 
   @Output() delete = new EventEmitter<Hero>();
 
-  @Input() heroes: Hero[];
+  @Input() heroes!: Hero[];
 
   constructor() {
   }

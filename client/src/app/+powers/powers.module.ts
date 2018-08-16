@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatCardModule,
+  MatDialogModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
@@ -22,6 +23,7 @@ import { IndexComponent } from './containers/index/index.component';
 import { PowerComponent } from './containers/power/power.component';
 
 import { PowersRoutingModule } from './powers-routing.module';
+import { AddPowerDialogComponent } from './components/add-power-dialog/add-power-dialog.component';
 
 @NgModule({
   imports: [
@@ -29,6 +31,7 @@ import { PowersRoutingModule } from './powers-routing.module';
     FlexLayoutModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
@@ -38,7 +41,9 @@ import { PowersRoutingModule } from './powers-routing.module';
     ReactiveFormsModule,
     SharedModule
   ],
+  entryComponents: [AddPowerDialogComponent],
   declarations: [
+    AddPowerDialogComponent,
     IndexComponent,
     PowersComponent,
     EditComponent,

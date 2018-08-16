@@ -10,9 +10,9 @@ import { Hero } from '../../../core/models/hero.model';
 })
 export class PowerDetailComponent {
 
-  @Input() heroes: Hero[];
+  @Input() heroes!: Hero[];
 
-  @Input() power: Power;
+  @Input() power!: Power;
 
   constructor() {
   }

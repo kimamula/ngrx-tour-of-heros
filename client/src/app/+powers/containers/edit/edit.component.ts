@@ -1,62 +1,74 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import { Store, select } from '@ngrx/store';
 
 import { Observable } from 'rxjs';
-import { first, map, switchMap, tap } from 'rxjs/operators';
+import { filter, first, map, retry, switchMap, tap } from 'rxjs/operators';
 
 import { Power } from '../../../core/models/power.model';
+import { Store } from '../../../redux/Store';
 import {
-  LoadPower,
-  SelectPower,
-  UpdatePower
-} from '../../../state/powers/actions/powers';
-import {
-  getSelectedPower,
-  PowersState,
-  getPowerEntities
-} from '../../../state/powers/reducers';
+  LOAD_POWER,
+  PowersActionPayload,
+  SELECT_POWER,
+  UPDATE_POWER
+} from '../../../state/powers/powers.action';
+import { POWERS_NAMESPACE, powersReducer, PowersRootState } from '../../../state/powers/powers.reducer';
+import { getPowerEntities, getSelectedPower } from '../../../state/powers/powers.selectors';
+import { PowersService } from '../../../core/services/powers.service';
+import { SNACKBAR_OPEN } from '../../../state/snackbar/snackbar.action';
+import { SPINNER_HIDE, SPINNER_SHOW } from '../../../state/spinner/spinner.action';
+import { addCommonReducers, CommonStoreWith } from '../../../state/util';
 
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
 })
-export class EditComponent implements OnInit {
-  power: Observable<Power>;
+export class EditComponent {
+  power: Observable<Power | undefined>;
+  private readonly store: CommonStoreWith<PowersRootState, PowersActionPayload>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private snackBar: MatSnackBar,
-    private store: Store<PowersState>
-  ) {}
-
-  ngOnInit() {
+    private powersService: PowersService,
+    store: Store
+  ) {
+    this.store = addCommonReducers(store).addReducer(POWERS_NAMESPACE, powersReducer);
     this.power = this.activatedRoute.paramMap.pipe(
       tap(paramMap => {
-        const id = +paramMap.get('id');
-        this.store.dispatch(new SelectPower({ id: id }));
-        this.hasPowerInStore(id).subscribe(exists => {
-          if (!exists) {
-            this.store.dispatch(new LoadPower({ id: id }));
-          }
-        });
+        const id = +paramMap.get('id')!;
+        this.store.dispatch(SELECT_POWER, { id });
+        this.hasPowerInStore(id).pipe(
+          filter(exists => !exists),
+          tap(() => this.store.dispatch(SPINNER_SHOW)),
+          switchMap(() => this.powersService.getPower(id).pipe(retry(3)))
+        ).subscribe(
+          power => this.store.dispatch(LOAD_POWER, power),
+          e => this.store.dispatch(SNACKBAR_OPEN, e),
+      () => this.store.dispatch(SPINNER_HIDE)
+        );
       }),
-      switchMap(() => this.store.pipe(select(getSelectedPower)))
+      switchMap(() => this.store.state$.pipe(map(getSelectedPower)))
     );
   }
 
   hasPowerInStore(id: number): Observable<boolean> {
-    return this.store
-      .select(getPowerEntities)
+    return this.store.state$
       .pipe(
+        map(getPowerEntities),
         first(powers => powers !== null),
         map(powers => powers[id] !== undefined)
       );
   }
 
   powerChange(power: Power) {
-    this.store.dispatch(new UpdatePower(power));
+    this.store.dispatch(SPINNER_SHOW);
+    this.powersService.updatePower(power).pipe(retry(3)).subscribe(
+      _power => this.store.dispatch(UPDATE_POWER, _power),
+      e => this.store.dispatch(SNACKBAR_OPEN, e),
+      () => this.store.dispatch(SPINNER_HIDE)
+    );
   }
 }

@@ -12,14 +12,14 @@ import { Hero } from '../../../core/models/hero.model';
 })
 export class HeroDetailComponent {
 
-  @Input() hero: Hero;
+  @Input() hero!: Hero;
 
-  @Input() powers: Power[];
+  @Input() powers!: Power[];
 
   constructor() {
   }
 
-  getCharacterUrlByType(type: 'detail' | 'wiki' | 'comiclink'): CharacterUrl {
+  getCharacterUrlByType(type: 'detail' | 'wiki' | 'comiclink'): CharacterUrl | undefined {
     return this.hero.character.urls.find(url => url.type === type);
   }
 
