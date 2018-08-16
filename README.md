@@ -303,6 +303,10 @@ this.store.dispatch({ type: LOAD_POWERS, payload: powers });
 非同期の action は現時点では提供していない。
 必要になったら Redux Thunk （[redux-observable](https://redux-observable.js.org/)?）的な仕組みを用意するのはそんなに難しくないはず。
 
+もともとの Redux が（通常） middleware で Async action を実現するのは、 React + Redux における Container Component に非同期処理の実装を入れづらいため、それを Action 側に持って来ざるを得なかったのが大きいのではないかと考えている。
+Angular では Container Component も通常の Component と同じように class で実装するため、このような事情はなく、 Container Component で非同期処理を実装することを忌避する理由がない。
+例えば Redux Thunk による Async Action の実装は個人的にかなり醜いと感じるため、できればそのような仕組みは入れずにいたい。
+
 ## その他
 
 ### Redux Devtools
