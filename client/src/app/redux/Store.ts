@@ -14,7 +14,7 @@ export const REDUX_INITIAL_STATE = 'reduxInitialState';
 export class Store<S extends object = {}, AP = {}> {
   readonly state$: Observable<S>;
   private readonly dispatcher$ = new Subject<Action<AP>>();
-  private readonly reducers: { [namespace: string]: (state: any, action: Action<any>) => any } = {};
+  private readonly reducers: { [namespace: string]: Reducer<any, any> } = {};
   private state: S;
   private _reducer?: Reducer<S, AP>;
   constructor(
@@ -63,8 +63,8 @@ export class Store<S extends object = {}, AP = {}> {
       return this as any;
     }
     this.reducers[namespace] = newReducer as any;
+    // delete collected reducer as it is outdated
     delete this._reducer;
-    // (this as any as Store<object, CommonActionPayload>).dispatch(ADD_REDUCER, [newReducer.name]);
     return this as any;
   }
   getState(): S {
