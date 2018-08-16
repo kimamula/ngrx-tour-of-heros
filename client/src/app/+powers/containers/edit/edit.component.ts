@@ -18,7 +18,7 @@ import { getPowerEntities, getSelectedPower } from '../../../state/powers/powers
 import { PowersService } from '../../../core/services/powers.service';
 import { SNACKBAR_OPEN } from '../../../state/snackbar/snackbar.action';
 import { SPINNER_HIDE, SPINNER_SHOW } from '../../../state/spinner/spinner.action';
-import { addCommonReducers, CommonStoreWith } from '../../../state/util';
+import { baseStore, BaseStoreWith } from '../../../state/util';
 
 @Component({
   selector: 'app-edit',
@@ -27,7 +27,7 @@ import { addCommonReducers, CommonStoreWith } from '../../../state/util';
 })
 export class EditComponent {
   power: Observable<Power | undefined>;
-  private readonly store: CommonStoreWith<PowersRootState, PowersActionPayload>;
+  private readonly store: BaseStoreWith<PowersRootState, PowersActionPayload>;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -35,7 +35,7 @@ export class EditComponent {
     private powersService: PowersService,
     store: Store
   ) {
-    this.store = addCommonReducers(store).addReducer(POWERS_NAMESPACE, powersReducer);
+    this.store = baseStore(store).extend(POWERS_NAMESPACE, powersReducer);
     this.power = this.activatedRoute.paramMap.pipe(
       tap(paramMap => {
         const id = +paramMap.get('id')!;

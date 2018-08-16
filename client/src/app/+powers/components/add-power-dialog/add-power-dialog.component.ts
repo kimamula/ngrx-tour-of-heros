@@ -12,7 +12,7 @@ import { Store } from '../../../redux/Store';
 import { PowersService } from '../../../core/services/powers.service';
 import { retry } from 'rxjs/operators';
 import { SNACKBAR_OPEN } from '../../../state/snackbar/snackbar.action';
-import { addCommonReducers, CommonStoreWith } from '../../../state/util';
+import { baseStore, BaseStoreWith } from '../../../state/util';
 import { SPINNER_HIDE, SPINNER_SHOW } from '../../../state/spinner/spinner.action';
 
 @Component({
@@ -22,7 +22,7 @@ import { SPINNER_HIDE, SPINNER_SHOW } from '../../../state/spinner/spinner.actio
 export class AddPowerDialogComponent {
 
   form: FormGroup;
-  private readonly store: CommonStoreWith<PowersRootState, PowersActionPayload>;
+  private readonly store: BaseStoreWith<PowersRootState, PowersActionPayload>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,7 +30,7 @@ export class AddPowerDialogComponent {
     private powersService: PowersService,
     store: Store
   ) {
-    this.store = addCommonReducers(store).addReducer(POWERS_NAMESPACE, powersReducer);
+    this.store = baseStore(store).extend(POWERS_NAMESPACE, powersReducer);
     this.form = this.formBuilder.group({
       name: ['', Validators.required]
     });

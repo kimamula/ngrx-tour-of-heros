@@ -13,7 +13,7 @@ import { map, retry } from 'rxjs/operators';
 import { getAllPowers } from '../../../state/powers/powers.selectors';
 import { PowersService } from '../../../core/services/powers.service';
 import { SNACKBAR_OPEN } from '../../../state/snackbar/snackbar.action';
-import { addCommonReducers, CommonStoreWith } from '../../../state/util';
+import { baseStore, BaseStoreWith } from '../../../state/util';
 import { SPINNER_HIDE, SPINNER_SHOW } from '../../../state/spinner/spinner.action';
 
 @Component({
@@ -23,10 +23,10 @@ import { SPINNER_HIDE, SPINNER_SHOW } from '../../../state/spinner/spinner.actio
 })
 export class IndexComponent implements OnInit {
   powers$: Observable<Array<Power>>;
-  private readonly store: CommonStoreWith<PowersRootState, PowersActionPayload>;
+  private readonly store: BaseStoreWith<PowersRootState, PowersActionPayload>;
 
   constructor(store: Store, private powersService: PowersService) {
-    this.store = addCommonReducers(store).addReducer(POWERS_NAMESPACE, powersReducer);
+    this.store = baseStore(store).extend(POWERS_NAMESPACE, powersReducer);
     this.powers$ = this.store.state$.pipe(map(getAllPowers));
   }
 

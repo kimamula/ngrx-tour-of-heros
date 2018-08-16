@@ -5,7 +5,7 @@ import { isAddPowerDialogShowing } from '../../../state/powers/powers.selectors'
 import { Subscription } from 'rxjs';
 import { POWERS_NAMESPACE, powersReducer, PowersRootState } from '../../../state/powers/powers.reducer';
 import { PowersActionPayload } from '../../../state/powers/powers.action';
-import { addCommonReducers, CommonStoreWith } from '../../../state/util';
+import { baseStore, BaseStoreWith } from '../../../state/util';
 import { Store } from '../../../redux/Store';
 import { MatDialog } from '@angular/material';
 import { AddPowerDialogComponent } from '../add-power-dialog/add-power-dialog.component';
@@ -22,10 +22,10 @@ export class PowersComponent implements OnInit, OnDestroy {
   @Input() powers!: Power[];
 
   private readonly subscriptions: Subscription[] = [];
-  private readonly store: CommonStoreWith<PowersRootState, PowersActionPayload>;
+  private readonly store: BaseStoreWith<PowersRootState, PowersActionPayload>;
 
   constructor(store: Store, private matDialog: MatDialog) {
-    this.store = addCommonReducers(store).addReducer(POWERS_NAMESPACE, powersReducer);
+    this.store = baseStore(store).extend(POWERS_NAMESPACE, powersReducer);
   }
 
   ngOnInit(): void {

@@ -4,13 +4,13 @@ import { SPINNER_NAMESPACE, spinnerReducer, SpinnerRootState } from './spinner/s
 import { SnackbarActionPayload } from './snackbar/snackbar.action';
 import { SpinnerActionPayload } from './spinner/spinner.action';
 
-export function addCommonReducers(store: Store): Store<SnackbarRootState & SpinnerRootState, SnackbarActionPayload & SpinnerActionPayload> {
+export function baseStore(store: Store): Store<SnackbarRootState & SpinnerRootState, SnackbarActionPayload & SpinnerActionPayload> {
   return store
-    .addReducer(SNACKBAR_NAMESPACE, snackbarReducer)
-    .addReducer(SPINNER_NAMESPACE, spinnerReducer);
+    .extend(SNACKBAR_NAMESPACE, snackbarReducer)
+    .extend(SPINNER_NAMESPACE, spinnerReducer);
 }
 
-export type CommonStoreWith<S = {}, AP = {}> = Store<
+export type BaseStoreWith<S = {}, AP = {}> = Store<
   SnackbarRootState & SpinnerRootState & S,
   SnackbarActionPayload & SpinnerActionPayload & AP
 >;

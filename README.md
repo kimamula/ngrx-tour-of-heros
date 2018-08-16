@@ -13,15 +13,15 @@ The purpose of this repository is to create an example Tour of Heroes applicatio
     - NgModule への import の仕方と、 Component に DI される store の型の整合性を取るのは開発者
         - 慣れの問題かもしれないけれど、このあたりがやたら複雑で難しい印象がある
     - @ngrx/effects の `ofType` -> v7 で改善予定: https://github.com/ngrx/platform/issues/860
-- feature が使いづらそう（ひょっとしたら誤解があるかもしれない）
+- feature （state を分割するための機能）が使いづらそう（ひょっとしたら誤解があるかもしれない）
     - 柔軟性がない
         - https://redux.js.org/recipes/structuringreducers/beyondcombinereducers に書かれているようなこと（feature をまたがった状態の参照、更新）ができない
         - 関連 issue: https://github.com/ngrx/example-app/issues/159
     - feature は NgModule に対して一つだけ
         - NgModule の分割単位が feature の分割単位に影響する
-        - 本来は別個に考えられた方がいいのではないか
+        - feature は Model、 NgModule は View/ViewModel に属すると考えれば、独立していた方がいい
 
-## 今回実装したものの特徴
+## 今回独自に作った Redux 実装の特徴
 
 - boilerplate 少ない
 - 型安全
@@ -35,7 +35,7 @@ The purpose of this repository is to create an example Tour of Heroes applicatio
 
 - [`Store.ts`](client/src/app/redux/Store.ts)
     - Store の実装
-    - オレオレ Redux 実装の中枢、今の所 100 行以内に収まっている（小さい！）
+    - Redux 実装の中枢、今の所 100 行以内に収まっている（小さい！）
 - [`Action.ts`](client/src/app/redux/Action.ts)
     - Action の型定義
 - [`Reducer.ts`](client/src/app/redux/Reducer.ts)
@@ -225,18 +225,18 @@ export const isAddPowerDialogShowing = createSelector(
 
 ## Redux module を使う
 
-1. Container Component の constructor で store に reducer を登録する
+1. Container Component の constructor で store を reducer の登録によって拡張する
 
 ```ts
 @Component({
   // ...
 })
 export class FooContainerComponent {
-  // store.addReducer() は TypeScript 的に正しい型の Store を返してくれるので、ここの型宣言は冗長だが、 TypeScript の仕様上仕方ない
+  // store.extend() は TypeScript 的に正しい型の Store を返してくれるので、ここの型宣言は冗長だが、 TypeScript の仕様上仕方ない
   private readonly store: Store<PowersRootState, PowersActionPayload>;
 
   constructor(store: Store) {
-    this.store = store.addReducer(POWERS_NAMESPACE, powersReducer);
+    this.store = store.extend(POWERS_NAMESPACE, powersReducer);
   }
   // ...
 }
@@ -244,22 +244,22 @@ export class FooContainerComponent {
 
 `Store` は 2 つの型パラメータを取る。
 一つ目は内包する state の型を示し、二つ目はこの store の dispatch メソッドが受け付ける action の型を表す。
-`store.addReducer()` で reducer を登録すると、これら 2 つの両方が拡張される。
+`store.extend()` から reducer を登録すると、これら 2 つの両方が拡張される。
 
 ```ts
-// addReducer() の型表現
+// extend() の型表現
 export class Store<S, AP> {
 
   // ...
 
-  addReducer<NS extends string, _S, _AP>(
+  extend<NS extends string, _S, _AP>(
     namespace: NS,
     newReducer: Reducer<_S, _AP>
   ): Store<S & { [ns in NS]: _S }, AP & _AP>;
 }
 ``` 
 
-Container Component と Redux module の関係は m : n なので、 addReducer は何回呼んでも問題ない（`this.store = store.addReducer(/* ... */).addReducer(/* ... */)...`）。
+Container Component と Redux module の関係は m : n なので、 extend は何回呼んでも問題ない（`this.store = store.extend(/* ... */).extend(/* ... */)...`）。
 constructor 引数の `store` は Angular の DI の仕組みで Inject されるためシングルトンだが、同じ reducer を登録しようとした場合は単に無視するので、すでに登録ずみかどうかを気にする必要はない。
 
 こうして、 Container Component 内で実装により正しく型が保証された store が手に入る。

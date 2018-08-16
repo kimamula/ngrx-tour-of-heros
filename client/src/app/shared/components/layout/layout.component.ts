@@ -6,7 +6,7 @@ import { SNACKBAR_CLOSE } from '../../../state/snackbar/snackbar.action';
 import { isSpinnerShowing } from '../../../state/spinner/spinner.selectors';
 import { map } from 'rxjs/operators';
 import { snackbarSetting } from '../../../state/snackbar/snackbar.selectors';
-import { addCommonReducers, CommonStoreWith } from '../../../state/util';
+import { baseStore, BaseStoreWith } from '../../../state/util';
 
 @Component({
   selector: 'app-layout',
@@ -15,13 +15,13 @@ import { addCommonReducers, CommonStoreWith } from '../../../state/util';
 })
 export class LayoutComponent implements OnInit, OnDestroy {
   loading$: Observable<boolean>;
-  private readonly store: CommonStoreWith;
+  private readonly store: BaseStoreWith;
   private subscriptions: Subscription[] = [];
 
   @ViewChild('sidenav') sidenav?: MatSidenav;
 
   constructor(store: Store, private matSnackBar: MatSnackBar) {
-    this.store = addCommonReducers(store);
+    this.store = baseStore(store);
     this.loading$ = this.store.state$.pipe(map(isSpinnerShowing));
   }
 

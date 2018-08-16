@@ -51,7 +51,7 @@ export class Store<S extends object = {}, AP = {}> {
     this.dispatcher$.next(action);
     return action;
   }
-  addReducer<NS extends string, _S, _AP>(
+  extend<NS extends string, _S, _AP>(
     namespace: NS,
     newReducer: Reducer<_S, _AP>
   ): Store<S & { [ns in NS]: _S }, AP & _AP> {
