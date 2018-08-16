@@ -1,20 +1,19 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
-import { Observable } from "rxjs/Observable";
-import { forkJoin } from "rxjs/observable/forkJoin";
-import { map, mergeMap, switchMap } from "rxjs/operators";
+import { Observable,  forkJoin } from 'rxjs';
+import { mergeMap, switchMap } from 'rxjs/operators';
 
-import { CharactersService } from "../../../core/services/characters.service";
-import { HeroesService } from "../../../core/services/heroes.service";
-import { PowersService } from "../../../core/services/powers.service";
-import { Power } from "../../../core/models/power.model";
-import { Hero } from "../../../core/models/hero.model";
+import { CharactersService } from '../../../core/services/characters.service';
+import { HeroesService } from '../../../core/services/heroes.service';
+import { PowersService } from '../../../core/services/powers.service';
+import { Power } from '../../../core/models/power.model';
+import { Hero } from '../../../core/models/hero.model';
 
 @Component({
-  selector: "app-character",
-  templateUrl: "./character.component.html",
-  styleUrls: ["./character.component.scss"]
+  selector: 'app-character',
+  templateUrl: './character.component.html',
+  styleUrls: ['./character.component.scss']
 })
 export class CharacterComponent implements OnInit {
   hero: Observable<Hero>;
@@ -32,7 +31,7 @@ export class CharacterComponent implements OnInit {
   ngOnInit() {
     this.hero = this.activatedRoute.paramMap.pipe(
       switchMap(paramMap =>
-        this.heroesService.getHero(Number(paramMap.get("id")))
+        this.heroesService.getHero(Number(paramMap.get('id')))
       )
     );
     this.powers = this.hero.pipe(

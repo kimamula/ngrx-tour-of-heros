@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from "@angular/material";
+import { MatDialog } from '@angular/material';
 
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs';
 
-import { HeroesService } from "../../../core/services/heroes.service";
-import { Hero } from "../../../core/models/hero.model";
-import { AddHeroDialogComponent } from "../../components/add-hero-dialog/add-hero-dialog.component";
+import { HeroesService } from '../../../core/services/heroes.service';
+import { Hero } from '../../../core/models/hero.model';
+import { AddHeroDialogComponent } from '../../components/add-hero-dialog/add-hero-dialog.component';
 
 @Component({
   selector: 'app-index',
@@ -16,7 +16,7 @@ export class IndexComponent implements OnInit {
 
   heroes: Observable<Array<Hero>>;
 
-  //TODO: use store instead of service
+  // TODO: use store instead of service
   constructor(private heroesService: HeroesService, private matDialog: MatDialog) {
   }
 

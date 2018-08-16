@@ -1,6 +1,6 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { AppState } from "../../app.interfaces";
-import * as fromPowers from "./powers";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { AppState } from '../../app.interfaces';
+import * as fromPowers from './powers';
 
 export interface PowersState {
   powers: fromPowers.State;
@@ -14,7 +14,7 @@ export const reducers = {
   powers: fromPowers.reducer
 };
 
-export const getPowersState = createFeatureSelector<PowersState>("powers");
+export const getPowersState = createFeatureSelector<PowersState>('powers');
 
 export const getPowersEntityState = createSelector(
   getPowersState,

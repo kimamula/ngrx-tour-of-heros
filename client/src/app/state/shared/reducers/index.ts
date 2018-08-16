@@ -1,9 +1,9 @@
-import { createSelector, createFeatureSelector } from "@ngrx/store";
+import { createSelector, createFeatureSelector } from '@ngrx/store';
 
-import * as fromSpinner from "./spinner";
+import * as fromSpinner from './spinner';
 
 export const selectSpinnerEntity = createFeatureSelector<fromSpinner.State>(
-  "spinner"
+  'spinner'
 );
 export const isSpinnerShowing = createSelector(
   selectSpinnerEntity,

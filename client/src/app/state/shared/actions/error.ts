@@ -1,6 +1,6 @@
-import { HttpErrorResponse } from "@angular/common/http";
-import { Action } from "@ngrx/store";
-import { createActionType } from "../utils";
+import { HttpErrorResponse } from '@angular/common/http';
+import { Action } from '@ngrx/store';
+import { createActionType } from '../utils';
 
 export const HTTP_ERROR = createActionType('HTTP_ERROR');
 

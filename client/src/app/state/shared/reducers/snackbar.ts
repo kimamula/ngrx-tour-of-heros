@@ -1,4 +1,4 @@
-import { SNACKBAR_CLOSE, SNACKBAR_OPEN, SnackbarAction } from "../actions/snackbar";
+import { SNACKBAR_CLOSE, SNACKBAR_OPEN, SnackbarAction } from '../actions/snackbar';
 
 export interface State {
   show: boolean;
@@ -9,7 +9,7 @@ const initialState: State = {
 };
 
 export function reducer(state: State = initialState, action: SnackbarAction) {
-  switch(action.type) {
+  switch (action.type) {
     case SNACKBAR_CLOSE:
       return { ...state, show: false };
     case SNACKBAR_OPEN:

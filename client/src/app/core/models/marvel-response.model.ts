@@ -7,5 +7,5 @@ export interface MarvelResponse<T> {
     offset: number;
     total: number;
     results: Array<T>;
-  }
+  };
 }

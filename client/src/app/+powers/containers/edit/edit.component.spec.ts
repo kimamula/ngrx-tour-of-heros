@@ -1,17 +1,16 @@
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from "@angular/forms";
-import { MatCardModule, MatFormFieldModule, MatInputModule, MatSnackBarModule } from "@angular/material";
-import { NoopAnimationsModule } from "@angular/platform-browser/animations";
-import { ActivatedRoute } from "@angular/router";
-import { RouterTestingModule } from "@angular/router/testing";
-import { Observable } from "rxjs/Observable";
-import { of } from "rxjs/observable/of";
-import { PowersService } from "../../../core/services/powers.service";
-import { SharedModule } from "../../../shared/shared.module";
-import { StateModule } from "../../../state/state.module";
-import { EditPowerComponent } from "../../components/edit-power/edit-power.component";
-import { EditComponent } from "./edit.component";
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule, MatFormFieldModule, MatInputModule, MatSnackBarModule } from '@angular/material';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Observable,  of } from 'rxjs';
+import { PowersService } from '../../../core/services/powers.service';
+import { SharedModule } from '../../../shared/shared.module';
+import { StateModule } from '../../../state/state.module';
+import { EditPowerComponent } from '../../components/edit-power/edit-power.component';
+import { EditComponent } from './edit.component';
 
 class ActivatedRouteStub {
   paramMap: Observable<Map<string, string>>;

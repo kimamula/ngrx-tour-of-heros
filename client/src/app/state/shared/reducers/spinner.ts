@@ -1,4 +1,4 @@
-import { SPINNER_HIDE, SPINNER_SHOW, SpinnerAction } from "../actions/spinner";
+import { SPINNER_HIDE, SPINNER_SHOW, SpinnerAction } from '../actions/spinner';
 
 export interface State {
   show: boolean;

@@ -1,5 +1,5 @@
-import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
-import { Power } from "../../../core/models/power.model";
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { Power } from '../../../core/models/power.model';
 import {
   ADD_POWER_DIALOG_CLOSE,
   ADD_POWER_DIALOG_OPEN,
@@ -11,7 +11,7 @@ import {
   PowersAction,
   SELECT_POWER,
   UPDATE_POWER_SUCCESS
-} from "../actions/powers";
+} from '../actions/powers';
 
 export interface State extends EntityState<Power> {
   addDialogShow: boolean;

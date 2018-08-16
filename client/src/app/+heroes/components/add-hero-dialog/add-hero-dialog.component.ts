@@ -1,27 +1,25 @@
-import { Component, HostListener, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { MatAutocompleteSelectedEvent, MatDialogRef } from "@angular/material";
-import "rxjs/add/observable/of";
-
-import { Observable } from "rxjs/Observable";
+import { of as observableOf,  Observable } from 'rxjs';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatAutocompleteSelectedEvent, MatDialogRef } from '@angular/material';
 import {
   debounceTime,
   distinctUntilChanged,
   filter,
   map,
   switchMap
-} from "rxjs/operators";
-import { Character } from "../../../core/models/character.model";
-import { Hero } from "../../../core/models/hero.model";
-import { Power } from "../../../core/models/power.model";
-import { CharactersService } from "../../../core/services/characters.service";
+} from 'rxjs/operators';
+import { Character } from '../../../core/models/character.model';
+import { Hero } from '../../../core/models/hero.model';
+import { Power } from '../../../core/models/power.model';
+import { CharactersService } from '../../../core/services/characters.service';
 
-import { HeroesService } from "../../../core/services/heroes.service";
-import { PowersService } from "../../../core/services/powers.service";
+import { HeroesService } from '../../../core/services/heroes.service';
+import { PowersService } from '../../../core/services/powers.service';
 
 @Component({
-  templateUrl: "./add-hero-dialog.component.html",
-  styleUrls: ["./add-hero-dialog.component.scss"]
+  templateUrl: './add-hero-dialog.component.html',
+  styleUrls: ['./add-hero-dialog.component.scss']
 })
 export class AddHeroDialogComponent implements OnInit {
   filteredCharacters: Observable<Array<Character>>;
@@ -45,13 +43,13 @@ export class AddHeroDialogComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      name: ["", Validators.required]
+      name: ['', Validators.required]
     });
 
     this.powersService.getPowers().subscribe(powers => (this.powers = powers));
 
     this.filteredCharacters = this.form
-      .get("name")
+      .get('name')
       .valueChanges.pipe(
         debounceTime(500),
         distinctUntilChanged(),
@@ -72,12 +70,12 @@ export class AddHeroDialogComponent implements OnInit {
     if (character) {
       return character.name;
     }
-    return "";
+    return '';
   }
 
   filter(name: string): Observable<Array<Character>> {
     if (name.length === 0) {
-      return Observable.of([]);
+      return observableOf([]);
     }
     return this.charactersService
       .getCharacters(name)
@@ -87,7 +85,7 @@ export class AddHeroDialogComponent implements OnInit {
       );
   }
 
-  @HostListener("keydown.esc")
+  @HostListener('keydown.esc')
   onEsc() {
     this.close();
   }

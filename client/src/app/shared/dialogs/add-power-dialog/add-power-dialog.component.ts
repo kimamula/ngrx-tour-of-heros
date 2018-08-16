@@ -1,10 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { MatDialogRef } from "@angular/material";
-import { Store } from "@ngrx/store";
-import { Power } from "../../../core/models/power.model";
-import { AddPower, AddPowerDialogClose } from "../../../state/powers/actions/powers";
-import { PowersState } from "../../../state/powers/reducers/index";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material';
+import { Store } from '@ngrx/store';
+import { Power } from '../../../core/models/power.model';
+import { AddPower, AddPowerDialogClose } from '../../../state/powers/actions/powers';
+import { PowersState } from '../../../state/powers/reducers/index';
 
 @Component({
   templateUrl: './add-power-dialog.component.html',

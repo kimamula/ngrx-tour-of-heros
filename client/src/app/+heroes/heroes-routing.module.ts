@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { IndexComponent } from "./containers/index/index.component";
-import { CharacterComponent } from "./containers/character/character.component";
-import { EditComponent } from "./containers/edit/edit.component";
+import { IndexComponent } from './containers/index/index.component';
+import { CharacterComponent } from './containers/character/character.component';
+import { EditComponent } from './containers/edit/edit.component';
 
 const routes: Routes = [
   {

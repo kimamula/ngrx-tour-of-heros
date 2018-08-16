@@ -1,6 +1,6 @@
-import { MatSnackBarConfig } from "@angular/material";
-import { Action } from "@ngrx/store";
-import { createActionType } from "../utils";
+import { MatSnackBarConfig } from '@angular/material';
+import { Action } from '@ngrx/store';
+import { createActionType } from '../utils';
 
 export const SNACKBAR_OPEN = createActionType('SNACKBAR_OPEN');
 export const SNACKBAR_CLOSE = createActionType('SNACKBAR_CLOSE');

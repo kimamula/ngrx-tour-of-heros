@@ -1,11 +1,10 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
-import { Observable } from "rxjs/Observable";
-import { of } from "rxjs/observable/of";
-import { switchMap } from "rxjs/operators";
-import { Power } from "../models/power.model";
-import { BaseService } from "./base.service";
+import { Observable,  of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { Power } from '../models/power.model';
+import { BaseService } from './base.service';
 
 @Injectable()
 export class PowersService extends BaseService {

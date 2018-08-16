@@ -1,14 +1,14 @@
-import { HttpClientModule } from "@angular/common/http";
-import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
-import { TestBed } from "@angular/core/testing";
-import { generateHeroes } from "../models/hero.model";
-import { HeroesService } from "./heroes.service";
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { generateHeroes } from '../models/hero.model';
+import { HeroesService } from './heroes.service';
 
 describe('HeroesService', () => {
   let heroesService: HeroesService;
   let httpMock: HttpTestingController;
 
-  let heroes = generateHeroes();
+  const heroes = generateHeroes();
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -27,24 +27,24 @@ describe('HeroesService', () => {
 
   it('should create a hero', (done) => {
     const h = {
-      "id": 6,
-      "powers": [
+      'id': 6,
+      'powers': [
         1,
         2,
         3,
         4,
         5
       ],
-      "character": {
-        "id": 12345,
-        "name": "Brian Love",
-        "modified": "2018-02-01T00:00:00-0700",
-        "description": "Software Enginner and thought leader by day, super hero by night. That's all you get to know.",
-        "thumbnail": {
-          "path": "http://brianflove.com/images/bio/brian-love",
-          "extension": "jpg"
+      'character': {
+        'id': 12345,
+        'name': 'Brian Love',
+        'modified': '2018-02-01T00:00:00-0700',
+        'description': 'Software Enginner and thought leader by day, super hero by night. That\'s all you get to know.',
+        'thumbnail': {
+          'path': 'http://brianflove.com/images/bio/brian-love',
+          'extension': 'jpg'
         },
-        "urls": []
+        'urls': []
       }
     };
     heroesService.createHero(h)

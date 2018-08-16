@@ -1,25 +1,25 @@
-import { Location } from "@angular/common";
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from "@angular/core/testing";
-import { FlexLayoutModule } from "@angular/flex-layout";
+import { Location } from '@angular/common';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatCardModule, MatIconModule, MatListModule, MatMenuModule,
   MatProgressSpinnerModule
-} from "@angular/material";
-import { By } from "@angular/platform-browser";
-import { NoopAnimationsModule } from "@angular/platform-browser/animations";
-import { RouterTestingModule } from "@angular/router/testing";
-import { generatePowers, Power } from "../../../core/models/power.model";
-import { SharedModule } from "../../../shared/shared.module";
-import { PowerComponent } from "../../containers/power/power.component";
-import { PowerDetailComponent } from "../power-detail/power-detail.component";
-import { PowersComponent } from "./powers.component";
+} from '@angular/material';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
+import { generatePowers, Power } from '../../../core/models/power.model';
+import { SharedModule } from '../../../shared/shared.module';
+import { PowerComponent } from '../../containers/power/power.component';
+import { PowerDetailComponent } from '../power-detail/power-detail.component';
+import { PowersComponent } from './powers.component';
 
 describe('PowersComponent', () => {
   let component: PowersComponent;
   let fixture: ComponentFixture<PowersComponent>;
   let location: Location;
 
-  let powers = generatePowers();
+  const powers = generatePowers();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -40,7 +40,7 @@ describe('PowersComponent', () => {
         ]),
         SharedModule
       ]
-    }).compileComponents()
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -59,7 +59,7 @@ describe('PowersComponent', () => {
   });
 
   it('should display the first hero\'s name', () => {
-    let firstPowerEl = fixture.debugElement.query(By.css('.power'));
+    const firstPowerEl = fixture.debugElement.query(By.css('.power'));
     expect(firstPowerEl.nativeElement.textContent.trim()).toEqual(powers[0].name);
   });
 
@@ -70,10 +70,10 @@ describe('PowersComponent', () => {
       done();
     });
 
-    let menuButton = fixture.debugElement.query(By.css('.actions button'));
+    const menuButton = fixture.debugElement.query(By.css('.actions button'));
     menuButton.nativeElement.click();
 
-    let deleteButton = fixture.debugElement.query(By.css('.delete'));
+    const deleteButton = fixture.debugElement.query(By.css('.delete'));
     deleteButton.triggerEventHandler('click', powers[0]);
 
     expect(deletedPower).toEqual(powers[0]);
@@ -82,7 +82,7 @@ describe('PowersComponent', () => {
   it('should route to power', fakeAsync(() => {
     // const spy = spyOn(router, 'navigateByUrl');
 
-    let anchor = fixture.debugElement.query(By.css('.power > a'));
+    const anchor = fixture.debugElement.query(By.css('.power > a'));
     anchor.nativeElement.click();
 
     tick();

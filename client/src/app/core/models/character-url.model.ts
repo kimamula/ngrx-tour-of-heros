@@ -1,4 +1,4 @@
 export interface CharacterUrl {
-  type: "detail" | "wiki" | "comiclink";
+  type: 'detail' | 'wiki' | 'comiclink';
   url: string;
 }

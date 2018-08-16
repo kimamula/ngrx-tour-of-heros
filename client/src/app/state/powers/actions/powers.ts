@@ -1,6 +1,6 @@
-import { Action } from "@ngrx/store";
-import { Power } from "../../../core/models/power.model";
-import { createActionType } from "../../shared/utils";
+import { Action } from '@ngrx/store';
+import { Power } from '../../../core/models/power.model';
+import { createActionType } from '../../shared/utils';
 
 export const ADD_POWER = createActionType('ADD_POWER');
 export const ADD_POWER_SUCCESS = createActionType('ADD_POWER_SUCCESS');
@@ -11,7 +11,7 @@ export const DELETE_POWER_SUCCESS = createActionType('DELETE_POWER_SUCCESS');
 export const LOAD_POWERS = createActionType('LOAD_POWERS');
 export const LOAD_POWERS_SUCCESS = createActionType('LOAD_POWERS_SUCCESS');
 export const LOAD_POWER = createActionType('LOAD_POWER');
-export const LOAD_POWER_SUCCESS = createActionType('LOAD_POWER_SUCCESS')
+export const LOAD_POWER_SUCCESS = createActionType('LOAD_POWER_SUCCESS');
 export const SELECT_POWER = createActionType('SELECT_POWER');
 export const UPDATE_POWER = createActionType('UPDATE_POWER');
 export const UPDATE_POWER_SUCCESS = createActionType('UPDATE_POWER_SUCCESS');

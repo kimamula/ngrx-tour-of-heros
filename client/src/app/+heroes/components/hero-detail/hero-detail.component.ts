@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 
-import { CharacterImage } from "../../../core/models/character-image.model";
-import { CharacterUrl } from "../../../core/models/character-url.model";
-import { Power } from "../../../core/models/power.model";
-import { Hero } from "../../../core/models/hero.model";
+import { CharacterImage } from '../../../core/models/character-image.model';
+import { CharacterUrl } from '../../../core/models/character-url.model';
+import { Power } from '../../../core/models/power.model';
+import { Hero } from '../../../core/models/hero.model';
 
 @Component({
   selector: 'app-hero-detail',
@@ -19,7 +19,7 @@ export class HeroDetailComponent {
   constructor() {
   }
 
-  getCharacterUrlByType(type: "detail" | "wiki" | "comiclink"): CharacterUrl {
+  getCharacterUrlByType(type: 'detail' | 'wiki' | 'comiclink'): CharacterUrl {
     return this.hero.character.urls.find(url => url.type === type);
   }
 

@@ -1,11 +1,11 @@
-import { APP_BASE_HREF } from "@angular/common";
+import { APP_BASE_HREF } from '@angular/common';
 import { async, TestBed } from '@angular/core/testing';
-import { Router } from "@angular/router";
-import { RouterTestingModule } from "@angular/router/testing";
-import { AppRoutingModule } from "./app-routing.module";
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoreModule } from "./core/core.module";
-import { SharedModule } from "./shared/shared.module";
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

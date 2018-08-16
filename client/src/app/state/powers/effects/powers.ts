@@ -1,10 +1,9 @@
-import { HttpErrorResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { MatDialog } from "@angular/material";
-import { Actions, Effect } from "@ngrx/effects";
-import { Action } from "@ngrx/store";
-import "rxjs/add/observable/of";
-import { Observable } from "rxjs/Observable";
+import { of as observableOf, Observable } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { Actions, Effect } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
 import {
   catchError,
   map,
@@ -12,12 +11,12 @@ import {
   retry,
   switchMap,
   tap
-} from "rxjs/operators";
-import { PowersService } from "../../../core/services/powers.service";
-import { AddPowerDialogComponent } from "../../../shared/dialogs/add-power-dialog/add-power-dialog.component";
-import { HttpError } from "../../shared/actions/error";
-import { SnackbarOpen } from "../../shared/actions/snackbar";
-import { HideSpinner, ShowSpinner } from "../../shared/actions/spinner";
+} from 'rxjs/operators';
+import { PowersService } from '../../../core/services/powers.service';
+import { AddPowerDialogComponent } from '../../../shared/dialogs/add-power-dialog/add-power-dialog.component';
+import { HttpError } from '../../shared/actions/error';
+import { SnackbarOpen } from '../../shared/actions/snackbar';
+import { HideSpinner, ShowSpinner } from '../../shared/actions/spinner';
 import {
   ADD_POWER,
   ADD_POWER_DIALOG_CLOSE,
@@ -43,7 +42,7 @@ import {
   UPDATE_POWER_SUCCESS,
   UpdatePower,
   UpdatePowerSuccess
-} from "../actions/powers";
+} from '../actions/powers';
 
 type showSpinnerTypes =
   | AddPower
@@ -94,7 +93,7 @@ export class PowersEffects {
       map(action => action.payload),
       switchMap(power => this.powersService.createPower(power).pipe(retry(3))),
       map(power => new AddPowerSuccess(power)),
-      catchError((e: HttpErrorResponse) => Observable.of(new HttpError(e)))
+      catchError((e: HttpErrorResponse) => observableOf(new HttpError(e)))
     );
 
   @Effect()
@@ -103,8 +102,8 @@ export class PowersEffects {
     .pipe(
       mergeMap(() => [
         new SnackbarOpen({
-          message: "Power Created",
-          action: "Success"
+          message: 'Power Created',
+          action: 'Success'
         }),
         new AddPowerDialogClose()
       ])
@@ -131,7 +130,7 @@ export class PowersEffects {
       map(action => action.payload),
       switchMap(power => this.powersService.deletePower(power).pipe(retry(3))),
       map(power => new DeletePowerSuccess(power)),
-      catchError((e: HttpErrorResponse) => Observable.of(new HttpError(e)))
+      catchError((e: HttpErrorResponse) => observableOf(new HttpError(e)))
     );
 
   @Effect()
@@ -140,7 +139,7 @@ export class PowersEffects {
     .pipe(
       switchMap(() => this.powersService.getPowers().pipe(retry(3))),
       map(powers => new LoadPowersSuccess(powers)),
-      catchError((e: HttpErrorResponse) => Observable.of(new HttpError(e)))
+      catchError((e: HttpErrorResponse) => observableOf(new HttpError(e)))
     );
 
   @Effect()
@@ -152,7 +151,7 @@ export class PowersEffects {
         this.powersService.getPower(payload.id).pipe(retry(3))
       ),
       map(power => new LoadPowerSuccess(power)),
-      catchError((e: HttpErrorResponse) => Observable.of(new HttpError(e)))
+      catchError((e: HttpErrorResponse) => observableOf(new HttpError(e)))
     );
 
   @Effect()
@@ -162,7 +161,7 @@ export class PowersEffects {
       map(action => action.payload),
       switchMap(power => this.powersService.updatePower(power).pipe(retry(3))),
       map(power => new UpdatePowerSuccess(power)),
-      catchError((e: HttpErrorResponse) => Observable.of(new HttpError(e)))
+      catchError((e: HttpErrorResponse) => observableOf(new HttpError(e)))
     );
 
   @Effect()
@@ -172,8 +171,8 @@ export class PowersEffects {
       map(
         () =>
           new SnackbarOpen({
-            message: "Power Updated",
-            action: "Success"
+            message: 'Power Updated',
+            action: 'Success'
           })
       )
     );

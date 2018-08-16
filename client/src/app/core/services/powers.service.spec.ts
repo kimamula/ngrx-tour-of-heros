@@ -1,14 +1,14 @@
-import { HttpClientModule } from "@angular/common/http";
-import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
-import { TestBed } from "@angular/core/testing";
-import { generatePowers } from "../models/power.model";
-import { PowersService } from "./powers.service";
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { generatePowers } from '../models/power.model';
+import { PowersService } from './powers.service';
 
 describe('PowersService', () => {
   let powersService: PowersService;
   let httpMock: HttpTestingController;
 
-  let powers = generatePowers();
+  const powers = generatePowers();
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -30,8 +30,8 @@ describe('PowersService', () => {
       name: 'X-ray Vision'
     };
     powersService.createPower(power)
-      .subscribe(power => {
-        expect(power).toEqual({
+      .subscribe(_power => {
+        expect(_power).toEqual({
           ...power,
           id: 9
         });
@@ -68,8 +68,8 @@ describe('PowersService', () => {
 
   it('should get an array of powers', (done) => {
     powersService.getPowers()
-      .subscribe(powers => {
-        expect(powers).toEqual(powers);
+      .subscribe(_powers => {
+        expect(_powers).toEqual(powers);
         done();
       });
     const request = httpMock.expectOne('http://localhost:3000/powers');

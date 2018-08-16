@@ -1,13 +1,13 @@
-import { AppPage } from "./app.po";
+import { AppPage } from './app.po';
 
-describe("Tour of Heroes", () => {
+describe('Tour of Heroes', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
   });
 
-  it("should load application", async () => {
+  it('should load application', async () => {
     await page.navigateTo();
     expect(page.getRouterOutlet()).toBeTruthy();
   });

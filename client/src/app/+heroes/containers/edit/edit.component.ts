@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
-import { MatSnackBar } from "@angular/material";
+import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
-import { Observable } from "rxjs/Observable";
-import { switchMap } from "rxjs/operators";
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
-import { HeroesService } from "../../../core/services/heroes.service";
-import { Hero } from "../../../core/models/hero.model";
-import { PowersService } from "../../../core/services/powers.service";
-import { Power } from "../../../core/models/power.model";
+import { HeroesService } from '../../../core/services/heroes.service';
+import { Hero } from '../../../core/models/hero.model';
+import { PowersService } from '../../../core/services/powers.service';
+import { Power } from '../../../core/models/power.model';
 
 @Component({
   selector: 'app-edit',

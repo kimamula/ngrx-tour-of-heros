@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { MatSnackBar } from "@angular/material";
-import { Actions, Effect } from "@ngrx/effects";
-import { Observable } from "rxjs/Observable";
-import { delay, map, tap } from "rxjs/operators";
-import { SNACKBAR_CLOSE, SNACKBAR_OPEN, SnackbarClose, SnackbarOpen } from "../actions/snackbar";
+import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
+import { Actions, Effect } from '@ngrx/effects';
+import { Observable } from 'rxjs';
+import { delay, map, tap } from 'rxjs/operators';
+import { SNACKBAR_CLOSE, SNACKBAR_OPEN, SnackbarClose, SnackbarOpen } from '../actions/snackbar';
 
 @Injectable()
 export class SnackbarEffects {

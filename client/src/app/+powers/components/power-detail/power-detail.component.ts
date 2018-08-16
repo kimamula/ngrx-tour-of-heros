@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
-import { Power } from "../../../core/models/power.model";
-import { Hero } from "../../../core/models/hero.model";
+import { Power } from '../../../core/models/power.model';
+import { Hero } from '../../../core/models/hero.model';
 
 @Component({
   selector: 'app-power-detail',

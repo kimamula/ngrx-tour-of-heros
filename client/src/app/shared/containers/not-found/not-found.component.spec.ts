@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatButtonModule, MatIconModule, MatListModule, MatSidenavModule, MatToolbarModule } from "@angular/material";
-import { By } from "@angular/platform-browser";
-import { NoopAnimationsModule } from "@angular/platform-browser/animations";
-import { DialogHeaderComponent } from "../../components/dialog-header/dialog-header.component";
-import { LayoutComponent } from "../../components/layout/layout.component";
+import { MatButtonModule, MatIconModule, MatListModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogHeaderComponent } from '../../components/dialog-header/dialog-header.component';
+import { LayoutComponent } from '../../components/layout/layout.component';
 
 import { NotFoundComponent } from './not-found.component';
 
@@ -39,6 +39,6 @@ describe('NotFoundComponent', () => {
   it('should have an h1', () => {
     const debugElement = fixture.debugElement.query(By.css('h1'));
     expect(debugElement.nativeElement.innerText).toBe('We\'re not here');
-  })
+  });
 
 });

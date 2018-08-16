@@ -1,28 +1,27 @@
-import { Component, OnInit } from "@angular/core";
-import { MatSnackBar } from "@angular/material";
-import { ActivatedRoute } from "@angular/router";
-import { Store, select } from "@ngrx/store";
+import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+import { Store, select } from '@ngrx/store';
 
-import { Observable } from "rxjs/Observable";
-import { first, map, switchMap, tap } from "rxjs/operators";
+import { Observable } from 'rxjs';
+import { first, map, switchMap, tap } from 'rxjs/operators';
 
-import { Power } from "../../../core/models/power.model";
+import { Power } from '../../../core/models/power.model';
 import {
   LoadPower,
   SelectPower,
   UpdatePower
-} from "../../../state/powers/actions/powers";
+} from '../../../state/powers/actions/powers';
 import {
-  getPowersTotal,
   getSelectedPower,
   PowersState,
   getPowerEntities
-} from "../../../state/powers/reducers";
+} from '../../../state/powers/reducers';
 
 @Component({
-  selector: "app-edit",
-  templateUrl: "./edit.component.html",
-  styleUrls: ["./edit.component.scss"]
+  selector: 'app-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
   power: Observable<Power>;
@@ -36,7 +35,7 @@ export class EditComponent implements OnInit {
   ngOnInit() {
     this.power = this.activatedRoute.paramMap.pipe(
       tap(paramMap => {
-        const id = +paramMap.get("id");
+        const id = +paramMap.get('id');
         this.store.dispatch(new SelectPower({ id: id }));
         this.hasPowerInStore(id).subscribe(exists => {
           if (!exists) {
@@ -52,7 +51,8 @@ export class EditComponent implements OnInit {
     return this.store
       .select(getPowerEntities)
       .pipe(
-        first(powers => powers !== null, powers => powers[id] !== undefined)
+        first(powers => powers !== null),
+        map(powers => powers[id] !== undefined)
       );
   }
 

@@ -1,19 +1,19 @@
-import { Component, OnInit } from "@angular/core";
-import { Store, select } from "@ngrx/store";
+import { Component, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
 
-import { Observable } from "rxjs/Observable";
-import { Power } from "../../../core/models/power.model";
+import { Observable } from 'rxjs';
+import { Power } from '../../../core/models/power.model';
 import {
   AddPowerDialogOpen,
   DeletePower,
   LoadPowers
-} from "../../../state/powers/actions/powers";
-import { getAllPowers, PowersState } from "../../../state/powers/reducers";
+} from '../../../state/powers/actions/powers';
+import { getAllPowers, PowersState } from '../../../state/powers/reducers';
 
 @Component({
-  selector: "app-index",
-  templateUrl: "./index.component.html",
-  styleUrls: ["./index.component.scss"]
+  selector: 'app-index',
+  templateUrl: './index.component.html',
+  styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
   powers: Observable<Array<Power>>;

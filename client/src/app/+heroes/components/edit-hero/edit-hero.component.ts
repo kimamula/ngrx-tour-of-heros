@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder } from '@angular/forms';
 
-import { Hero } from "../../../core/models/hero.model";
-import { Power } from "../../../core/models/power.model";
+import { Hero } from '../../../core/models/hero.model';
+import { Power } from '../../../core/models/power.model';
 
 @Component({
   selector: 'app-edit-hero',
@@ -26,7 +26,7 @@ export class EditHeroComponent implements OnChanges {
 
   ngOnChanges() {
     if (this.powers && this.hero) {
-      this.selectedPowers = [...this.powers].filter(power => this.hero.powers.indexOf(power.id) > -1)
+      this.selectedPowers = [...this.powers].filter(power => this.hero.powers.indexOf(power.id) > -1);
     }
   }
 
@@ -38,7 +38,7 @@ export class EditHeroComponent implements OnChanges {
     }
     this.heroChange.emit({
       ...this.hero,
-      powers: this.selectedPowers.map(power => power.id)
+      powers: this.selectedPowers.map(({ id }) => id)
     });
   }
 
