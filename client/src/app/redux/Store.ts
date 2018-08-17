@@ -16,6 +16,7 @@ export class Store<S extends object = {}, AP = {}> {
   private readonly dispatcher$ = new Subject<Action<AP>>();
   private readonly reducers: { [namespace: string]: Reducer<any, any> } = {};
   private state: S;
+  private readonly namespaces: string[];
   private _reducer?: Reducer<S, AP>;
   constructor(
     @Optional() @Inject(REDUX_INITIAL_STATE) initialState: S | (() => S),
@@ -24,14 +25,15 @@ export class Store<S extends object = {}, AP = {}> {
     if (typeof initialState === 'function') {
       initialState = initialState();
     }
-    const _initailState = initialState || {} as any;
-    this.state = _initailState;
+    const _initialState = initialState || {} as any;
+    this.state = _initialState;
+    this.namespaces = Object.keys(_initialState);
     const devtoolsState$ = new Subject<S>();
     const reducer: Reducer<S, AP> = devtoolsAdapter
-      ? devtoolsAdapter.wrapReducer((state, action) => this.reducer(state, action), devtoolsState$, _initailState)
+      ? devtoolsAdapter.wrapReducer((state, action) => this.reducer(state, action), devtoolsState$, _initialState)
       : (state, action) => this.reducer(state, action);
     this.state$ = merge(
-      this.dispatcher$.pipe(scan(reducer, _initailState)),
+      this.dispatcher$.pipe(scan(reducer, _initialState)),
       devtoolsState$
     ).pipe(shareReplay());
     this.state$.subscribe(state => this.state = state);
@@ -63,6 +65,9 @@ export class Store<S extends object = {}, AP = {}> {
       return this as any;
     }
     this.reducers[namespace] = newReducer as any;
+    if (this.namespaces.indexOf(namespace) < 0) {
+      this.namespaces.push(namespace);
+    }
     // delete collected reducer as it is outdated
     delete this._reducer;
     return this as any;
@@ -72,7 +77,7 @@ export class Store<S extends object = {}, AP = {}> {
   }
   private get reducer(): Reducer<S, AP> {
     if (!this._reducer) {
-      this._reducer = (state, action) => Object.keys({ ...state as any, ...this.reducers }).reduce((result, namespace) => {
+      this._reducer = (state, action) => this.namespaces.reduce((result, namespace) => {
         result[namespace] = this.reducers[namespace] ? this.reducers[namespace](state[namespace], action) : state[namespace];
         return result;
       }, {} as any);
