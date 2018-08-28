@@ -17,7 +17,6 @@ export class Store<S extends object = {}, AP = {}> {
   private readonly reducers: { [namespace: string]: Reducer<any, any> } = {};
   private state: S;
   private readonly namespaces: string[];
-  private _reducer?: Reducer<S, AP>;
   constructor(
     @Optional() @Inject(REDUX_INITIAL_STATE) initialState: S | (() => S),
     @Optional() devtoolsAdapter: ReduxDevtoolsAdapter
@@ -65,23 +64,18 @@ export class Store<S extends object = {}, AP = {}> {
       return this as any;
     }
     this.reducers[namespace] = newReducer as any;
-    if (this.namespaces.indexOf(namespace) < 0) {
+    if (!this.namespaces.includes(namespace)) {
       this.namespaces.push(namespace);
     }
-    // delete collected reducer as it is outdated
-    delete this._reducer;
     return this as any;
   }
   getState(): S {
     return this.state;
   }
-  private get reducer(): Reducer<S, AP> {
-    if (!this._reducer) {
-      this._reducer = (state, action) => this.namespaces.reduce((result, namespace) => {
-        result[namespace] = this.reducers[namespace] ? this.reducers[namespace](state[namespace], action) : state[namespace];
-        return result;
-      }, {} as any);
-    }
-    return this._reducer;
+  private reducer(state: S, action: Action<AP>): S {
+    return this.namespaces.reduce((result, namespace) => {
+      result[namespace] = this.reducers[namespace] ? this.reducers[namespace](state[namespace], action) : state[namespace];
+      return result;
+    }, {} as any);
   }
 }
