@@ -1,24 +1,27 @@
 import { ApplicationRef, Injectable, NgZone } from '@angular/core';
-import { Reducer } from './Reducer';
-import { Subject } from 'rxjs';
+import { Action } from './Action';
 
-const devtoolsAvailable = typeof window !== 'undefined'
-  && typeof window['devToolsExtension'] === 'function';
+const devtoolsExtension: any =
+  typeof window !== 'undefined' &&
+  typeof window['__REDUX_DEVTOOLS_EXTENSION__'] === 'function' &&
+  window['__REDUX_DEVTOOLS_EXTENSION__'];
 
 @Injectable()
 export class ReduxDevtoolsAdapter {
   constructor(private appRef: ApplicationRef) {}
-  wrapReducer<S, AP>(reducer: Reducer<S, AP>, state$: Subject<S>, initialState: S): Reducer<S, AP> {
-    if (!devtoolsAvailable) {
+  wrapReducer<S, AP>(
+    reducer: (state: S, action: Action<AP>) => S,
+    initialState: S
+  ): typeof reducer {
+    if (!devtoolsExtension) {
       return reducer;
     }
     // Make sure changes from dev tools update angular's view.
-    const store = window['devToolsExtension'](reducer, initialState);
+    const store = devtoolsExtension(reducer, initialState);
     let subscription: Function;
-    window['devToolsExtension'].listen(({ type }: { type: string }) => {
+    devtoolsExtension.listen(({ type }: { type: string }) => {
       if (type === 'START') {
         subscription = store.subscribe(() => {
-          state$.next(store.getState());
           if (!NgZone.isInAngularZone()) {
             this.appRef.tick();
           }
